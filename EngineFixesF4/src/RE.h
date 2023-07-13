@@ -13,4 +13,13 @@ namespace RE
 		REL::Relocation<func_t> func{ REL::ID(409767) };
 		return func(a_sink);
 	}
+
+	namespace Workshop
+	{
+		bool IsWorkshopItem(const TESObjectREFR* a_refr) {
+			using func_t = decltype(&IsWorkshopItem);
+			REL::Relocation<func_t> func{ REL::ID(1386903) };
+			return func(a_refr);
+		}
+	}
 }

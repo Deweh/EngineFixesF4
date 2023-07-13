@@ -12,8 +12,10 @@ namespace
 
 		virtual RE::BSEventNotifyControl ProcessEvent(const RE::TESCellAttachDetachEvent& a_event, RE::BSTEventSource<RE::TESCellAttachDetachEvent>*) override
 		{
-			if (!a_event.isAttaching && a_event.refr != nullptr) {
-				a_event.refr->UpdateDynamicNavmesh(false);
+			if (a_event.refr != nullptr && a_event.refr->parentCell != nullptr &&
+				a_event.refr->parentCell->cellFlags.any(RE::TESObjectCELL::Flag::kInterior) &&
+					RE::Workshop::IsWorkshopItem(a_event.refr.get())) {
+				a_event.refr->UpdateDynamicNavmesh(a_event.isAttaching);
 			}
 			return RE::BSEventNotifyControl::kContinue;
 		}
