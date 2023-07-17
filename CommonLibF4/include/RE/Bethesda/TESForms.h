@@ -840,6 +840,7 @@ namespace RE
 		[[nodiscard]] bool IsAlchemyItem() const noexcept { return Is(ENUM_FORM_ID::kALCH); }
 		[[nodiscard]] bool IsCreated() const noexcept { return (formID >> (8 * 3)) == 0xFF; }
 		[[nodiscard]] bool IsDeleted() noexcept { return (formFlags & (1u << 5)) != 0; }
+		[[nodiscard]] bool IsDisabled() noexcept { return (formFlags & (1u << 11)) != 0; }
 		[[nodiscard]] bool IsInitialized() const noexcept { return (formFlags & (1u << 3)) != 0; }
 
 		[[nodiscard]] bool IsNot(ENUM_FORM_ID a_type) const noexcept { return !Is(a_type); }
