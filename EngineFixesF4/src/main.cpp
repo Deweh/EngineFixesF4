@@ -14,12 +14,9 @@ namespace
 		{
 			if (a_event.refr != nullptr && a_event.refr->parentCell != nullptr &&
 				a_event.refr->parentCell->cellFlags.any(RE::TESObjectCELL::Flag::kInterior) &&
-				!a_event.refr->IsDeleted() && !a_event.refr->IsDisabled() && 
 					RE::Workshop::IsWorkshopItem(a_event.refr.get())) {
-
-				auto enctZone = a_event.refr->parentCell->GetEncounterZone();
-				if (enctZone != nullptr && enctZone->IsWorkshop()) {
-					a_event.refr->UpdateDynamicNavmesh(a_event.isAttaching);
+				if (auto enctZone = a_event.refr->parentCell->GetEncounterZone(); enctZone != nullptr && enctZone->IsWorkshop()) {
+					a_event.refr->UpdateDynamicNavmesh((a_event.refr->IsDeleted() || a_event.refr->IsDisabled()) ? false : a_event.isAttaching);
 				}
 			}
 			return RE::BSEventNotifyControl::kContinue;
