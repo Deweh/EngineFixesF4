@@ -32,7 +32,7 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL" CACHE 
 
 project(
 	Interior-NavCut-Fix
-	VERSION 1.0.2
+	VERSION 1.0.3
 	LANGUAGES CXX
 )
 

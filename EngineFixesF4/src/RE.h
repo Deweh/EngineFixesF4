@@ -22,4 +22,18 @@ namespace RE
 			return func(a_refr);
 		}
 	}
+
+	struct DynamicNavmesh
+	{
+		static DynamicNavmesh* GetSingleton() {
+			REL::Relocation<DynamicNavmesh**> singleton{ REL::ID(908540) };
+			return *singleton;
+		}
+
+		void ForceUpdate() {
+			using func_t = decltype(&DynamicNavmesh::ForceUpdate);
+			REL::Relocation<func_t> func{ REL::ID(854653) };
+			return func(this);
+		}
+	};
 }
