@@ -1,6 +1,12 @@
+//Uncomment this to disable multithreading with the Parallel Patterns Library.
+//#define NO_PPL
+
 #include "RE.h"
 #include <Windows.h>
+
+#ifndef NO_PPL
 #include <ppl.h>
+#endif
 
 namespace
 {
@@ -93,7 +99,11 @@ namespace
 				const auto& [map, lock] = RE::TESForm::GetAllForms();
 				RE::BSAutoReadLock l{ lock };
 
+#ifdef NO_PPL
+				for (const RE::BSTTuple<const uint32_t, RE::TESForm*>& ele : *map) {
+#else
 				concurrency::parallel_for_each(map->begin(), map->end(), [&](RE::BSTTuple<const uint32_t, RE::TESForm*> ele) {
+#endif
 					RE::TESObjectCELL* cell = ele.second->As<RE::TESObjectCELL>();
 
 					if (cell) {
@@ -112,7 +122,11 @@ namespace
 							}
 						}
 					}
-				});
+				}
+#ifndef NO_PPL
+				);
+#endif
+
 
 				RE::DynamicNavmesh::GetSingleton()->ForceUpdate();
 
